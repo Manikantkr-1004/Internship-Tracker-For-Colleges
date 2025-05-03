@@ -36,7 +36,12 @@ export function Faculty() {
 
         const internships = localStorage.getItem("internships") ? JSON.parse(localStorage.getItem("internships")) : [];
         const newData = internships.map((ele)=> ele.id === updateId ? {...ele, status: form.status, facultyComments: [...ele?.facultyComments, {comment: form.comment, status: form.status, date: new Date().toISOString()}]} : ele);
+
+        let users = localStorage.getItem("users") ? JSON.parse(localStorage.getItem("users")) : [];
+        users = users.map((ele)=> ele.id ===user.id && !ele.reviewedInternships.includes(updateId) ? {...ele, reviewedInternships: [...ele.reviewedInternships, updateId]} : ele);
+
         localStorage.setItem("internships", JSON.stringify(newData));
+        localStorage.setItem("users", JSON.stringify(users));
         setUpdateId(null);
         setForm({comment:"", status:""});
         toast.success("Status updated successfully.");

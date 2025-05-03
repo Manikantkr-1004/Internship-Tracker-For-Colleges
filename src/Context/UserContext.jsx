@@ -17,7 +17,7 @@ export function UserProvider({children}) {
         if(storedUser){
             const check = users.find((ele)=> ele.email === storedUser.email && ele.password === storedUser.password);
             check ? setIsLoggedIn(true) : setIsLoggedIn(false);
-            check ? setUser(storedUser) : setUser({});
+            check ? setUser(check) : setUser({});
         }
     }, [])
 
